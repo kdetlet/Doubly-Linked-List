@@ -1,0 +1,155 @@
+#include "int-dl-list.h"
+#include "int-dll-node.h"
+
+intDLList::intDLList(){
+	head = tail = nullptr;
+}
+
+
+
+bool intDLList::isEmpty(){
+	if(head == nullptr){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+intDLList::~intDLList(){
+	for(int intDLLNode *p; !isEmpty(); head = p){
+		p = head->next;
+		delete head;
+	}
+}
+
+
+void intDLList::addToHead(int i){
+	intDLLNode* new_node = new intDLLNode(i, head);
+	head->prev = new_node;
+	head = new_node;
+	if(tail == nullptr){
+		tail = head;
+	}
+}
+
+void intDLList::addToTail(int i){
+	if(tail != nullptr){
+		tail = new intDLLNode(i, nullptr, tail);
+		tail->prev->next = tail;
+	}
+	else{
+		head = tail = new intDLLNode(i);
+	}
+}
+
+int intDLList::deleteFromHead(){
+	if(!isEmpty()){
+		int i = head->info;
+		intDLLNode *temp = head;
+		if(head == tail){
+			head = tail = nullptr;
+		}
+		else{
+			head = head->next;
+			head->prev = nullptr;
+		}
+		delete temp
+		return i;
+	}
+	else{
+		throw(EMPTY_LIST);
+	}
+}
+
+int intDLList::deleteFromTail(){
+	if(head != nullptr){
+		int i = tail->info;
+		if(head == tail){
+			delete tail;
+			head = tail = nullptr;
+		}
+		else{
+			tail = tail->prev;
+			delete tail->next;
+			tail->next = nullptr;
+		}
+		return i;
+	}
+	else{
+		throw(EMPTY_LIST);
+	}
+}
+	
+void intDLList::deleteNode(int i){
+	if(head != nullptr){
+		if(head == tail && i == head->info){
+			delete head;
+			head = tail = nullptr;
+		}
+		else{
+			if(i == head->info){
+				intDLLNode* temp = head;
+				head = head->next;
+				head->prev = nullptr;
+				delete temp;
+			}
+			else{
+				intDLLNode *pred, *temp;
+				for(pred = head, temp = head->next; temp != nullptr && temp->info != i; pred = pred->next, temp = temp->next);
+				if(temp != nullptr){
+					pred->next = temp->next;
+					pred->next->prev = pred;
+				}
+				if(temp = tail){
+					tail = pred;
+				}
+				delete temp;
+			}
+		}
+	}
+}
+
+bool intDLList::isInList(int i) const{
+	intDLLNode* temp;
+	for(temp = head; temp!=nullptr && temp->info != el; temp = temp->next);
+	return (temp!=nullptr);
+}
+
+void intDLList::addSorted(int i){
+	if(head != isEmpty()){
+		if(head->info > i){
+			addToHead(i);
+		}
+		else if(tail->info < i){
+			addToTail(i);
+		}
+		else{
+			intDLLNode* test;
+			for(test = head->next; test!= nullptr && test->info < i; test = test->next);
+			intDLLNode* new_node = new intDLLNode(i, test->next, test->prev);
+			delete test;
+		}
+
+void intDLList::printList(){
+	
+
+				
+			
+			
+		
+		
+					
+					
+	
+
+
+
+
+
+
+
+
+
+
+	

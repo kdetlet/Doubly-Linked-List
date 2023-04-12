@@ -1,0 +1,8 @@
+#include "int-dll-node.h"
+intDLLNode::intDLLNode(int el = 0, intDLLNode *n = nullptr, intDLLNode *p = nullptr){
+		info  = el;
+		next = n;
+		prev = p;
+	}
+
+
